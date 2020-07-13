@@ -40,25 +40,51 @@ public class BaseTest extends AbstractTest{
     /**
      * Scenario: Verify it's possible to view created triangle
      */
-    @Test(dependsOnMethods = { "tc_base_01_create_equilateral_triangle" })
+    @Test()
     public void tc_base_02_view_created_triangle() {
+        TriangleData tempTriangle =
+                TriangleApi.with()
+                        .separator("-")
+                        .input("5-5-5")
+                        .callApiCreate()
+                        .then()
+                        .assertThat()
+                        .log().body()
+                        .statusCode(HttpStatus.SC_OK)
+                        .body(ID_FIELD, notNullValue())
+                        .extract()
+                        .body().as(TriangleData.class);
+
         TriangleApi.with()
                 .callApiAll()
                 .then()
                 .assertThat()
                 .log().body()
                 .statusCode(HttpStatus.SC_OK)
-                .body("id[0]", containsString(testTriangle.getId()));
+                .body("id[0]", containsString(tempTriangle.getId()));
     }
 
     /**
      * Scenario: Verify perimeter calculation for triangle
      */
-    @Test(dependsOnMethods = { "tc_base_01_create_equilateral_triangle" })
+    @Test()
     public void tc_base_03_get_triangle_perimeter() {
+        TriangleData tempTriangle =
+                TriangleApi.with()
+                        .separator("-")
+                        .input("5-5-5")
+                        .callApiCreate()
+                        .then()
+                        .assertThat()
+                        .log().body()
+                        .statusCode(HttpStatus.SC_OK)
+                        .body(ID_FIELD, notNullValue())
+                        .extract()
+                        .body().as(TriangleData.class);
+
         float p =
                 TriangleApi.with()
-                .id(testTriangle.getId())
+                .id(tempTriangle.getId())
                 .callApiPerimeter()
                 .then()
                 .assertThat()
@@ -67,8 +93,8 @@ public class BaseTest extends AbstractTest{
                 .extract()
                 .path(BODY_RESPONSE_RESULT);
 
-        Assert.assertEquals(p, Calculation.getPerimeter(testTriangle.getFirstSide(), testTriangle.getSecondSide()
-                , testTriangle.getThirdSide()),
+        Assert.assertEquals(p, Calculation.getPerimeter(tempTriangle.getFirstSide(), tempTriangle.getSecondSide()
+                , tempTriangle.getThirdSide()),
                 "Perimeter calculated incorrectly");
     }
 
@@ -77,8 +103,21 @@ public class BaseTest extends AbstractTest{
      */
     @Test(dependsOnMethods = { "tc_base_01_create_equilateral_triangle" })
     public void tc_base_04_get_triangle_area() {
+        TriangleData tempTriangle =
+                TriangleApi.with()
+                        .separator("-")
+                        .input("5-5-5")
+                        .callApiCreate()
+                        .then()
+                        .assertThat()
+                        .log().body()
+                        .statusCode(HttpStatus.SC_OK)
+                        .body(ID_FIELD, notNullValue())
+                        .extract()
+                        .body().as(TriangleData.class);
+
         float s = TriangleApi.with()
-                .id(testTriangle.getId())
+                .id(tempTriangle.getId())
                 .callApiArea()
                 .then()
                 .assertThat()
@@ -87,15 +126,15 @@ public class BaseTest extends AbstractTest{
                 .extract()
                 .path(BODY_RESPONSE_RESULT);
 
-        Assert.assertEquals(s, Calculation.getArea(testTriangle.getFirstSide(), testTriangle.getSecondSide(),
-                testTriangle.getThirdSide(), true),
+        Assert.assertEquals(s, Calculation.getArea(tempTriangle.getFirstSide(), tempTriangle.getSecondSide(),
+                tempTriangle.getThirdSide(), true),
                 "Area calculated incorrectly");
     }
 
     /**
      * Scenario: Verify it's possible to delete a triangle
      */
-    @Test(dependsOnMethods = { "tc_base_01_create_equilateral_triangle", "tc_base_02_view_created_triangle"})
+    @Test(dependsOnMethods = { "tc_base_01_create_equilateral_triangle"})
     public void tc_base_05_delete_triangle() {
         TriangleApi.with()
                 .id(testTriangle.getId())
