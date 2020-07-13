@@ -5,7 +5,7 @@
 
 <b>Test cases</b>
 * Verify it's possible to create equilateral triangle +
-* Verify it's possible to view created triangle -+
+* Verify it's possible to view created triangle +
 * Verify perimeter calculation for triangle +
 * Verify area calculation for equilateral triangle +
 * Verify it's possible to delete triangle +
