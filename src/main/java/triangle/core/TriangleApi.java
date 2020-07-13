@@ -19,7 +19,6 @@ public class TriangleApi {
     private TriangleApi() {}
     private HashMap<String, String> params = new HashMap<String, String>();
     private String ids;
-    private HashMap<String, String> queryParams = new HashMap<>();
 
     public static class ApiBuilder {
         TriangleApi triangleApi;
@@ -83,15 +82,6 @@ public class TriangleApi {
     public static ApiBuilder with() {
         TriangleApi api = new TriangleApi();
         return new ApiBuilder(api);
-    }
-
-    public static ResponseSpecification succesResponse() {
-        return new ResponseSpecBuilder()
-                .expectContentType(ContentType.JSON)
-                .expectHeader("Connection", "keep-alive")
-                .expectResponseTime(lessThan(20000L))
-                .expectStatusCode(HttpStatus.SC_OK)
-                .build();
     }
 
     public static RequestSpecification baseRequestConf() {
