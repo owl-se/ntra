@@ -15,7 +15,9 @@ public class Calculation {
             h = (float)sqrt(3) * firstLine / 2;
             s = firstLine * h / 2;
         } else {
-            s = 1;
+            float p = (firstLine + secondLine + thirdLine) / 2;
+            h = (float)(2 * sqrt(p*(p - firstLine)*(p - secondLine)*(p - thirdLine))) / firstLine;
+            s = firstLine * h / 2;
         }
 
         return s;
