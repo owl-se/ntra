@@ -19,7 +19,7 @@ public class AbstractTest {
         RestAssured.filters(new AllureRestAssured());
     }
 
-    @AfterSuite
+    @AfterSuite()
     public void tear_down() {
         List<String> ids =
                 TriangleApi.with()

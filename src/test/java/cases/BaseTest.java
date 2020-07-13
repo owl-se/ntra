@@ -61,7 +61,7 @@ public class BaseTest extends AbstractTest{
                 .assertThat()
                 .log().body()
                 .statusCode(HttpStatus.SC_OK)
-                .body("id[0]", containsString(tempTriangle.getId()));
+                .body("id[0-9]", containsString(tempTriangle.getId()));
     }
 
     /**
