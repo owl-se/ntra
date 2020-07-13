@@ -40,20 +40,8 @@ public class BaseTest extends AbstractTest{
     /**
      * Scenario: Verify it's possible to view created triangle
      */
-    @Test()
+    @Test(dependsOnMethods = { "tc_base_01_create_equilateral_triangle"})
     public void tc_base_02_view_created_triangle() {
-        TriangleData tempTriangle =
-                TriangleApi.with()
-                        .separator("-")
-                        .input("5-5-5")
-                        .callApiCreate()
-                        .then()
-                        .assertThat()
-                        .log().body()
-                        .statusCode(HttpStatus.SC_OK)
-                        .body(ID_FIELD, notNullValue())
-                        .extract()
-                        .body().as(TriangleData.class);
 
         TriangleApi.with()
                 .callApiAll()
@@ -61,7 +49,7 @@ public class BaseTest extends AbstractTest{
                 .assertThat()
                 .log().body()
                 .statusCode(HttpStatus.SC_OK)
-                .body("id[0-9]", containsString(tempTriangle.getId()));
+                .body("id[0]", containsString(testTriangle.getId()));
     }
 
     /**
@@ -134,7 +122,7 @@ public class BaseTest extends AbstractTest{
     /**
      * Scenario: Verify it's possible to delete a triangle
      */
-    @Test(dependsOnMethods = { "tc_base_01_create_equilateral_triangle"})
+    @Test(dependsOnMethods = { "tc_base_02_view_created_triangle"})
     public void tc_base_05_delete_triangle() {
         TriangleApi.with()
                 .id(testTriangle.getId())
