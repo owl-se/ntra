@@ -69,14 +69,14 @@ public class TriangleApi {
             return RestAssured.given()
                     .spec(baseRequestConf())
                     .log().all()
-                    .get("/triangle/" + triangleApi.ids + "/perimeter");
+                    .get(String.format(REQ_PERIMETER_TRINGLE, triangleApi.ids));
         }
 
         public Response callApiArea() {
             return RestAssured.given()
                     .spec(baseRequestConf())
                     .log().all()
-                    .get("/triangle/" + triangleApi.ids + "/area");
+                    .get(String.format(REQ_AREA_TRINGLE, triangleApi.ids));
         }
     }
 
@@ -96,7 +96,7 @@ public class TriangleApi {
 
     public static RequestSpecification baseRequestConf() {
         return new RequestSpecBuilder()
-                .setBaseUri("https://qa-quiz.natera.com/")
+                .setBaseUri(BASE_URL)
                 .setRelaxedHTTPSValidation()
                 .setContentType(ContentType.ANY.JSON)
                 .addHeader("X-User", "d893cc65-3339-452a-afaf-88a26e6c0f72")
