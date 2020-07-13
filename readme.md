@@ -1,7 +1,8 @@
 <b>How to launch</b>
-* Triangle base test, <i>mvn clean verify -Dtest=BaseTest</i>
-* Triangle contract test, <i>mvn clean verify -Dtest=BaseTest</i>
+* To run all tests, <i>mvn clean verify test</i>
 * Display allure report for it, <i>mvn allure:serve</i>
+* Triangle base test, <i>mvn clean verify -Dtest=BaseTest</i>
+* Triangle ext test, <i>mvn clean verify -Dtest=ExtTest</i>
 
 <b>Test cases</b>
 * Verify it's possible to create equilateral triangle
